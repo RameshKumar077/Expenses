@@ -13,18 +13,19 @@ import authRoutes from "./routes/auth.js";
 import expenseRoutes from "./routes/expense.js";
 
 const app = express();
-
-// CORS configuration: allow local dev and deployed client, and allow Authorization header
-const corsOptions = {
-    origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization']
-};
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on ${PORT} 🚀`));
+// When running locally (or via `node server.js`) start the listener.
+// In serverless environments (Vercel) the platform will import this file
+// and handle requests without calling `listen`, so avoid listening there.
+if (!process.env.VERCEL) {
+    app.listen(PORT, () => console.log(`Server running on ${PORT} 🚀`));
+}
+
+// Export the Express app so serverless builders can import and use it.
+export default app;
