@@ -13,7 +13,15 @@ import authRoutes from "./routes/auth.js";
 import expenseRoutes from "./routes/expense.js";
 
 const app = express();
-app.use(cors());
+
+// CORS configuration: allow local dev and deployed client, and allow Authorization header
+const corsOptions = {
+    origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
