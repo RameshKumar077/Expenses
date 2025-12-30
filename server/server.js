@@ -19,4 +19,6 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes);
 
-app.listen(5000, () => console.log("Server running on 5000 🚀"));
+
+// For Vercel serverless deployment, export the app
+export default app;
