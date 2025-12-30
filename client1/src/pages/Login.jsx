@@ -1,16 +1,18 @@
-
 import API from "../services/api";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
     const handleLogin = async (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
+
         const payload = Object.fromEntries(formData);
 
+        setIsLoading(true);
         try {
             const { data } = await API.post("/auth/login", payload);
 
@@ -32,6 +34,8 @@ export default function Login() {
         } catch (err) {
             console.log("Login error:", err);
             alert("Login failed, check credentials!");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -47,7 +51,8 @@ export default function Login() {
                         id="email"
                         name="email"
                         placeholder="Enter your email"
-                        className="border border-gray-600 bg-white/20 text-white placeholder-gray-300 p-3 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        className="border border-gray-600 bg-white/20 text-white placeholder-gray-300 p-3 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-60"
+                        disabled={isLoading}
                         required
                         autoComplete="email"
                     />
@@ -60,14 +65,30 @@ export default function Login() {
                         name="password"
                         type="password"
                         placeholder="Enter your password"
-                        className="border border-gray-600 bg-white/20 text-white placeholder-gray-300 p-3 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        className="border border-gray-600 bg-white/20 text-white placeholder-gray-300 p-3 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-60"
+                        disabled={isLoading}
                         required
                         autoComplete="current-password"
                     />
                 </div>
 
-                <button type="submit" className="bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 text-white font-bold py-2.5 w-full rounded-xl shadow-lg transition-all text-lg mb-3">
-                    Login
+                <button
+                    type="submit"
+                    disabled={isLoading}
+                    aria-busy={isLoading}
+                    className="bg-gradient-to-r from-blue-500 to-cyan-400 disabled:from-gray-500 disabled:to-gray-400 hover:from-blue-600 hover:to-cyan-500 text-white font-bold py-2.5 w-full rounded-xl shadow-lg transition-all text-lg mb-3 flex items-center justify-center gap-2"
+                >
+                    {isLoading ? (
+                        <>
+                            <svg className="w-5 h-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                            </svg>
+                            <span>Logging in...</span>
+                        </>
+                    ) : (
+                        'Login'
+                    )}
                 </button>
 
                 <div className="text-center mt-2">
