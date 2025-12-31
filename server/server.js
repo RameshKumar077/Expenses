@@ -28,7 +28,7 @@ app.use(
     cors({
         origin: ["http://localhost:5173",                      // Local Frontend
             "http://localhost:5000",                      // Local Backend (testing)
-            "https://expenses-frontend-git-main-ramesh-kumars-projects-bd92c359.vercel.app/login"],
+            "httpshttps://expenses-frontend-indol.vercel.app/"],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
     })
