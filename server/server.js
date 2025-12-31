@@ -36,17 +36,24 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Routes
+// Define routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/expenses", expenseRoutes);
+//app.use("/api/v1/gemini", geminiRoutes);
 
-// --- FIX START: Handle Root and Favicon Errors ---
-// 1. Serve a simple message for the root URL
+// Test Route
 app.get("/", (req, res) => {
-    res.send("API is running successfully. Use /api/v1/... endpoints.");
+    res.send("API is running...");
 });
 
-// 2. (Optional) If you have a 'public' folder in server, serve it to fix missing images/icons
-// app.use(express.static(path.join(__dirname, 'public'))); 
-// --- FIX END ---
+// --- CHANGE START: Vercel Configuration ---
+const PORT1 = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Only listen if NOT running on Vercel (local development)
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT1, () => console.log(`Server running on port ${PORT1}`));
+}
+
+// Export the app for Vercel
+export default app;
+// --- CHANGE END ---

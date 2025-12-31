@@ -46,3 +46,35 @@ export const updateMe = async (req, res) => {
         res.status(500).json({ message: 'Failed to update user' });
     }
 };
+
+// Get current user details
+export const getMe = async (req, res) => {
+    try {
+        // req.user is set by the authMiddleware
+        const user = await User.findById(req.user.id).select("-password"); // Exclude password
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        res.status(200).json({ success: true, user });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Server error", error: error.message });
+    }
+};
+
+// ... (your existing imports and signup/login functions)
+
+// --- ADD THIS FUNCTION ---
+export const logout = (req, res) => {
+    try {
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+        });
+
+        return res.status(200).json({ success: true, message: "Logged out successfully" });
+    } catch (error) {
+        return res.status(500).json({ success: false, message: error.message });
+    }
+};
+

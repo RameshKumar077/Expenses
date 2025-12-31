@@ -1,6 +1,6 @@
 import axios from "axios";
 const API = axios.create({
-    baseURL: "https://expenses-ten-phi.vercel.app/api/v1",
+    baseURL: "http://localhost:5000/api/v1"
 });
 
 
