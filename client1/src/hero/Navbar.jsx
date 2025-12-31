@@ -62,7 +62,7 @@ const Navbar = () => {
     };
     const navLinks = [
         { name: "Home", path: "/" },
-        { name: "Hotels", path: "/rooms" },
+        { name: "ContactUs", path: "/about" },
         { name: "Experience", path: "/testimonial" },
         { name: "About", path: "/about" },
     ];
