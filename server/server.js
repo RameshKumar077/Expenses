@@ -26,9 +26,8 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
     cors({
-        origin: ["http://localhost:5173",                      // Local Frontend
-            "http://localhost:5000",                      // Local Backend (testing)
-            "httpshttps://expenses-frontend-indol.vercel.app/"],
+        origin: ["http://localhost:5173",                                           // Local Backend (testing)
+            "https://expenses-frontend-indol.vercel.app/"],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
     })
