@@ -1,60 +1,59 @@
 import dotenv from "dotenv";
 dotenv.config();
-
 import mongoose from "mongoose";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import path from "path";
-import { fileURLToPath } from "url"; // Required to define __dirname in ES modules
-
-// Import Routes
-import authRoutes from "./routes/auth.js";
-import expenseRoutes from "./routes/expense.js";
-
-// --- FIX START: Define __dirname for ES Modules ---
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-// --- FIX END ---
-
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("MongoDB Connected ✔"))
-    .catch((err) => console.log(err));
+import path from "path"; // If you use path
+// ... other imports
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-app.use(
-    cors({
-        origin: ["http://localhost:5173",                                           // Local Backend (testing)
-            "https://expenses-frontend-indol.vercel.app/"],
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true,
-    })
-);
+// --- FIX START: Robust CORS Configuration ---
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://expenses-frontend-indol.vercel.app" // Ensure this matches your frontend URL exactly (NO trailing slash)
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            console.log("Blocked by CORS:", origin); // Helps debug on Vercel logs
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
+}));
+
+// Handle preflight requests explicitly
+app.options("*", cors());
+// --- FIX END ---
 
 app.use(express.json());
 app.use(cookieParser());
 
-// Routes
-// Define routes
-app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/expenses", expenseRoutes);
-//app.use("/api/v1/gemini", geminiRoutes);
+// ... Your Routes (app.use('/api/v1/auth', ...))
 
 // Test Route
 app.get("/", (req, res) => {
-    res.send("API is running...");
+    res.send("API is running successfully");
 });
 
-// --- CHANGE START: Vercel Configuration ---
-const PORT1 = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
-// Only listen if NOT running on Vercel (local development)
+// Vercel requires the app to be exported.
+// Only listen if we are NOT in production (local development)
 if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT1, () => console.log(`Server running on port ${PORT1}`));
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
 }
 
-// Export the app for Vercel
 export default app;
-// --- CHANGE END ---
