@@ -1,6 +1,8 @@
 import axios from "axios";
 const API = axios.create({
-    baseURL: "http://localhost:5000/api/v1"
+    // baseURL: "http://localhost:5000/api/v1"
+
+    baseURL:"https://expenses-git-main-ramesh-kumars-projects-bd92c359.vercel.app/api/v1"
 });
 
 
