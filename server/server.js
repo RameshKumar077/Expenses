@@ -31,7 +31,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-
+app.get('/', (req, res) => res.send('API server is running'));
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes);
 
