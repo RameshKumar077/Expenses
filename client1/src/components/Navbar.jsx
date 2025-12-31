@@ -6,35 +6,23 @@ export default function Navbar() {
   const [user, setUser] = useState(null);
   const [editing, setEditing] = useState(false);
 
-  // Fetch user info and update when login/storage events happen
+  // Watch for token changes to re-fetch user info
+  const token = localStorage.getItem("token");
   useEffect(() => {
     let mounted = true;
-
-    const fetchUser = () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        API.get('/auth/me')
-          .then(res => {
-            if (mounted && res.data && res.data.user) setUser(res.data.user);
-          })
-          .catch(() => {
-            if (mounted) setUser(null);
-          });
-      } else {
-        if (mounted) setUser(null);
-      }
-    };
-
-    fetchUser();
-
-    const onLogin = () => fetchUser();
-    const onStorage = (e) => { if (!e.key || e.key === 'token') fetchUser(); };
-
-    window.addEventListener('user-logged-in', onLogin);
-    window.addEventListener('storage', onStorage);
-
-    return () => { mounted = false; window.removeEventListener('user-logged-in', onLogin); window.removeEventListener('storage', onStorage); };
-  }, []);
+    if (token) {
+      API.get('/auth/me')
+        .then(res => {
+          if (mounted && res.data && res.data.user) setUser(res.data.user);
+        })
+        .catch(() => {
+          // silent - user not logged in or token missing
+        });
+    } else {
+      setUser(null);
+    }
+    return () => { mounted = false; };
+  }, [token]);
 
   function handleLogout() {
     localStorage.removeItem("token");
