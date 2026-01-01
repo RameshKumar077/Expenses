@@ -60,14 +60,19 @@ export default function AddTransactionModal({ onClose, onAdded }) {
                     step="0.01"
                     required
                 />
-                <input
-                    onChange={handleChange}
-                    name="date"
-                    type="date"
-                    className="w-full p-2 rounded bg-gray-600 mb-3 text-sm text-white  pr-10"
-                    value={form.date}
-                    required
-                />
+                <div className="w-full mb-2">
+                    <input
+                        onChange={handleChange}
+                        name="date"
+                        type="date"
+                        aria-label="Transaction date"
+                        className="w-full p-2 rounded bg-gray-600 text-sm text-white placeholder-gray-300 pr-10"
+                        value={form.date}
+                        required
+                    />
+                    <p className="text-xs text-gray-300 mt-1">Select date (dd-mm-yyyy)</p>
+                </div>
+                
 
                 <select onChange={handleChange} name="type" className="w-full p-2 rounded bg-gray-800 mb-3 text-sm">
                     <option value="expense">Expense</option>
