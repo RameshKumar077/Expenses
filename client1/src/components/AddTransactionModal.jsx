@@ -64,7 +64,7 @@ export default function AddTransactionModal({ onClose, onAdded }) {
                     onChange={handleChange}
                     name="date"
                     type="date"
-                    className="w-full p-2 rounded bg-gray-600 mb-3 text-sm text-white placeholder-gray-300 pr-10"
+                    className="w-full p-2 rounded bg-gray-600 mb-3 text-sm text-white  pr-10"
                     value={form.date}
                     required
                 />
