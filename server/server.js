@@ -13,17 +13,27 @@ import expenseRoutes from "./routes/expense.js";
 const app = express();
 
 // --- FIX START: Robust CORS Configuration ---
-const allowedOrigins = [
-    "https://expenses-frontend-git-main-ramesh-kumars-projects-bd92c359.vercel.app/" // Ensure this matches your frontend URL exactly (NO trailing slash)
+// Allow configuring allowed origins via env var `ALLOWED_ORIGINS` (comma-separated)
+const defaultAllowed = [
+    "http://localhost:5173",
+    "https://expenses-frontend-indol.vercel.app"
 ];
+const allowedOriginsRaw = process.env.ALLOWED_ORIGINS
+    ? process.env.ALLOWED_ORIGINS.split(',').map(s => s.trim())
+    : defaultAllowed;
+// normalize: strip trailing slash and lowercase for robust comparison
+const allowedOrigins = allowedOriginsRaw.map(o => o.replace(/\/+$/,'').toLowerCase());
 
 // Explicit CORS middleware: respond to preflight (OPTIONS) with 204 and set required headers
 app.use((req, res, next) => {
     const origin = req.headers.origin;
+    console.log('CORS check, incoming origin=', origin);
+    const originNormalized = origin ? origin.replace(/\/+$/,'').toLowerCase() : '';
+    console.log('CORS normalized origin=', originNormalized, 'allowed=', allowedOrigins);
     // Allow requests with no origin (curl, mobile apps)
     if (!origin) return next();
 
-    if (allowedOrigins.includes(origin)) {
+    if (allowedOrigins.includes(originNormalized)) {
         res.setHeader('Access-Control-Allow-Origin', origin);
         res.setHeader('Access-Control-Allow-Credentials', 'true');
         res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
@@ -34,7 +44,7 @@ app.use((req, res, next) => {
         return next();
     }
 
-    console.log('Blocked by CORS:', origin);
+    console.log('Blocked by CORS (not in allowedOrigins):', origin);
     return res.status(403).send('CORS Denied');
 });
 // --- FIX END ---
