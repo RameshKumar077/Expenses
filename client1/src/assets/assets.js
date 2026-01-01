@@ -81,7 +81,9 @@ export const assets = {
     Ramesh,
     Nitesh1,
     Sandhya1,
-    Sakshi1
+    Sakshi1,
+    Omkar,
+    Rameshk
 }
 
 export const cities = [
