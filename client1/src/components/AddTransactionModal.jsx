@@ -36,7 +36,7 @@ export default function AddTransactionModal({ onClose, onAdded }) {
 
     return (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-2">
-            <div className="bg-[#393c40] rounded-2xl p-4 sm:p-5 w-full max-w-xs shadow-xl">
+            <div className="bg-[#393c40] rounded-2xl p-4 sm:p-5 w-full max-w-md shadow-xl">
                 <h2 className="text-lg sm:text-xl font-bold mb-3 text-center">Add Transaction</h2>
 
 
@@ -44,7 +44,7 @@ export default function AddTransactionModal({ onClose, onAdded }) {
                     onChange={handleChange}
                     name="title"
                     placeholder="Title (Cinema)"
-                    className="w-full p-2 rounded bg-gray-500 mb-2 text-sm"
+                    className="w-full p-2 rounded bg-gray-500 mb-2 text-sm text-white placeholder-gray-300"
                     type="text"
                     value={form.title}
                     required
@@ -53,14 +53,21 @@ export default function AddTransactionModal({ onClose, onAdded }) {
                     onChange={handleChange}
                     name="amount"
                     placeholder="Amount"
-                    className="w-full p-2 rounded bg-gray-600 mb-2 text-sm"
+                    className="w-full p-2 rounded bg-gray-600 mb-2 text-sm text-white placeholder-gray-300"
                     type="number"
                     value={form.amount}
                     min="0.01"
                     step="0.01"
                     required
                 />
-                <input onChange={handleChange} name="date" type="date" className="w-full p-2 rounded bg-blue-400 mb-3 text-sm" value={form.date} required />
+                <input
+                    onChange={handleChange}
+                    name="date"
+                    type="date"
+                    className="w-full p-2 rounded bg-gray-600 mb-3 text-sm text-white placeholder-gray-300 pr-10"
+                    value={form.date}
+                    required
+                />
 
                 <select onChange={handleChange} name="type" className="w-full p-2 rounded bg-gray-800 mb-3 text-sm">
                     <option value="expense">Expense</option>
