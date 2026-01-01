@@ -1,8 +1,8 @@
 import axios from "axios";
-const API = axios.create({
-    // baseURL: "http://localhost:5000/api/v1"
 
-    baseURL:"https://expenses-ten-phi.vercel.app/api/v1"
+// Prefer runtime environment variable VITE_API_URL (set in .env), fallback to localhost
+const API = axios.create({
+    baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api/v1"
 });
 
 
