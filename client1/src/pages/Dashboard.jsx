@@ -157,9 +157,6 @@ export default function Dashboard() {
                     >
                         <option value="30">Last 30 Days</option>
                         <option value="90">Last 90 Days</option>
-                                <div className="bg-[#1E293B] rounded-2xl p-2 sm:p-4 overflow-x-auto w-full">
-                                    <TransactionChart data={chartData} selectedTransaction={selectedTxn} transactions={expenses} />
-                                </div>
                         <option value="365">Last 1 Year</option>
                         <option value="all">All time</option>
                     </select>

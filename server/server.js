@@ -5,6 +5,9 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path"; // If you use path
+import { connectDB } from "./config/db.js";
+import authRoutes from "./routes/auth.js";
+import expenseRoutes from "./routes/expense.js";
 // ... other imports
 
 const app = express();
@@ -32,14 +35,19 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
 }));
 
-// Handle preflight requests explicitly
-app.options("*", cors());
+// Handle preflight requests explicitly by responding to OPTIONS without using path patterns
+app.use((req, res, next) => {
+    if (req.method === 'OPTIONS') return res.sendStatus(200);
+    next();
+});
 // --- FIX END ---
 
 app.use(express.json());
 app.use(cookieParser());
 
-// ... Your Routes (app.use('/api/v1/auth', ...))
+// Mount API routes
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/expenses', expenseRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
@@ -48,12 +56,19 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-// Vercel requires the app to be exported.
-// Only listen if we are NOT in production (local development)
-if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
+// Connect to DB first, then start server (local dev). Export app for serverless/Vercel.
+connectDB()
+    .then(() => {
+        console.log("Database connected");
+        if (process.env.NODE_ENV !== 'production') {
+            app.listen(PORT, () => {
+                console.log(`Server running on port ${PORT}`);
+            });
+        }
+    })
+    .catch((err) => {
+        console.error("Failed to connect to database:", err);
+        process.exit(1);
     });
-}
 
 export default app;
