@@ -14,8 +14,7 @@ const app = express();
 
 // --- FIX START: Robust CORS Configuration ---
 const allowedOrigins = [
-    "http://localhost:5173",
-    "https://expenses-frontend-indol.vercel.app" // Ensure this matches your frontend URL exactly (NO trailing slash)
+    "https://expenses-frontend-git-main-ramesh-kumars-projects-bd92c359.vercel.app" // Ensure this matches your frontend URL exactly (NO trailing slash)
 ];
 
 app.use(cors({
