@@ -41,6 +41,9 @@ import Ramesh from './Ramesh.jpg';
 import Nitesh1 from './Nitesh1.jpg';
 import Sandhya1 from './Sandhya1.jpg';
 import Sakshi1 from './Sakshi1.jpg';
+import Rameshk from './Rameshk.jpeg';
+import Sakshi2 from './Sakshi2.jpg';
+import Omkar from './Omkar.jpg';
 
 export const assets = {
     logo,
@@ -98,8 +101,8 @@ export const exclusiveOffers = [
 // Testimonials Dummy Data
 export const testimonials = [
     { id: 1, name: "Nitesh Sinha", address: "Delhi, Noida", image: assets.Nitesh1, rating: 5, review: "I’ve used many finance apps before, but none matched the clarity and smart insights that ExpenseIQ delivers. The AI-driven predictions and spike alerts make money tracking genuinely effortless." },
-    { id: 2, name: "Sakshi Vaidehi", address: "New Delhi, India", image: assets.Sakshi1, rating: 4, review: "ExpenseIQ exceeded my expectations. The tracking process was frictionless, and the AI predictions were surprisingly accurate. Real-time spike alerts and saving insights make it a must-use. Highly recommended!" },
-    { id: 3, name: "Sandhya Rai", address: "Bihar, India", image: assets.Sandhya1, rating: 5, review: "Amazing experience! I always discover the smartest spending insights through ExpenseIQ. Its AI forecasts and personalized saving suggestions never disappoint!" }
+    { id: 2, name: "Sakshi Vaidehi", address: "New Delhi, India", image: assets.Rameshk, rating: 4, review: "ExpenseIQ exceeded my expectations. The tracking process was frictionless, and the AI predictions were surprisingly accurate. Real-time spike alerts and saving insights make it a must-use. Highly recommended!" },
+    { id: 3, name: "Sandhya Rai", address: "Bihar, India", image: assets.Omkar, rating: 5, review: "Amazing experience! I always discover the smartest spending insights through ExpenseIQ. Its AI forecasts and personalized saving suggestions never disappoint!" }
 ];
 
 // Facility Icon
