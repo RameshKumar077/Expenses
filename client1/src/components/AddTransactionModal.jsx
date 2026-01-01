@@ -60,7 +60,7 @@ export default function AddTransactionModal({ onClose, onAdded }) {
                     step="0.01"
                     required
                 />
-                <input onChange={handleChange} name="date" type="date" className="w-full p-2 rounded bg-gray-500 mb-3 text-sm" value={form.date} required />
+                <input onChange={handleChange} name="date" type="date" className="w-full p-2 rounded bg-blue-400 mb-3 text-sm" value={form.date} required />
 
                 <select onChange={handleChange} name="type" className="w-full p-2 rounded bg-gray-800 mb-3 text-sm">
                     <option value="expense">Expense</option>
