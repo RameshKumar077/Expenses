@@ -44,7 +44,7 @@ export default function AddTransactionModal({ onClose, onAdded }) {
                     onChange={handleChange}
                     name="title"
                     placeholder="Title (Cinema)"
-                    className="w-full p-2 rounded bg-gray-800 mb-2 text-sm"
+                    className="w-full p-2 rounded bg-gray-500 mb-2 text-sm"
                     type="text"
                     value={form.title}
                     required
@@ -53,14 +53,14 @@ export default function AddTransactionModal({ onClose, onAdded }) {
                     onChange={handleChange}
                     name="amount"
                     placeholder="Amount"
-                    className="w-full p-2 rounded bg-gray-800 mb-2 text-sm"
+                    className="w-full p-2 rounded bg-gray-600 mb-2 text-sm"
                     type="number"
                     value={form.amount}
                     min="0.01"
                     step="0.01"
                     required
                 />
-                <input onChange={handleChange} name="date" type="date" className="w-full p-2 rounded bg-gray-800 mb-3 text-sm" value={form.date} required />
+                <input onChange={handleChange} name="date" type="date" className="w-full p-2 rounded bg-gray-500 mb-3 text-sm" value={form.date} required />
 
                 <select onChange={handleChange} name="type" className="w-full p-2 rounded bg-gray-800 mb-3 text-sm">
                     <option value="expense">Expense</option>

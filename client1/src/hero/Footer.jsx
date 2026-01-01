@@ -3,9 +3,9 @@ import { assets } from '../assets/assets'
 
 const Footer = () => {
     return (
-        <div className='bg-[#F6F9FC] text-gray-500/80 pt-8 px-6 md:px-16 lg:px-24 xl:px-32'>
+        <div className='bg-[#0F172A] text-gray-300 pt-8 px-6 md:px-16 lg:px-24 xl:px-32'>
             <div className='flex flex-wrap justify-between gap-12 md:gap-6'>
-                <div className='max-w-80'>
+                <div className='max-w-80 w-full md:w-auto'>
                     <img src={assets.logo} alt="logo" className='mb-4 h-8 md:h-9 invert opacity-80' />
                     <p className='text-sm'>
                         Discover your money’s story, from daily spends to monthly trends, powered by AI insights that help you save smarter.
@@ -18,7 +18,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div>
+                <div className='w-full md:w-auto'>
                     <p className='font-playfair text-lg text-gray-800'>COMPANY</p>
                     <ul className='mt-3 flex flex-col gap-2 text-sm'>
                         <li><a href="#">About</a></li>
@@ -29,7 +29,7 @@ const Footer = () => {
                     </ul>
                 </div>
 
-                <div>
+                <div className='w-full md:w-auto'>
                     <p className='font-playfair text-lg text-gray-800'>SUPPORT</p>
                     <ul className='mt-3 flex flex-col gap-2 text-sm'>
                         <li><a href="#">Help Center</a></li>
@@ -40,7 +40,7 @@ const Footer = () => {
                     </ul>
                 </div>
 
-                <div className='max-w-80'>
+                <div className='max-w-80 w-full md:w-auto'>
                     <p className='font-playfair text-lg text-gray-800'>STAY UPDATED</p>
                     <p className='mt-3 text-sm'>
                         Join our newsletter for AI forecasts, saving tips, and high-spend alerts.
@@ -53,8 +53,8 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <hr className='border-gray-300 mt-8' />
-            <div className='flex flex-col md:flex-row gap-2 items-center justify-between py-5'>
+            <hr className='border-gray-700 mt-8' />
+            <div className='flex flex-col md:flex-row gap-2 items-center justify-between py-5 text-gray-300'>
                 <p>© {new Date().getFullYear()} ExpenseIQ. All rights reserved.</p>
                 <ul className='flex items-center gap-4'>
                     <li><a href="#">Privacy</a></li>

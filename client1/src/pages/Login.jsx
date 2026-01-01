@@ -1,10 +1,11 @@
 
 import API from "../services/api";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -12,6 +13,7 @@ export default function Login() {
         const payload = Object.fromEntries(formData);
 
         try {
+            setLoading(true);
             const { data } = await API.post("/auth/login", payload);
 
             // token save करो
@@ -32,6 +34,8 @@ export default function Login() {
         } catch (err) {
             console.log("Login error:", err);
             alert("Login failed, check credentials!");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -66,8 +70,22 @@ export default function Login() {
                     />
                 </div>
 
-                <button type="submit" className="bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 text-white font-bold py-2.5 w-full rounded-xl shadow-lg transition-all text-lg mb-3">
-                    Login
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className={`bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 text-white font-bold py-2.5 w-full rounded-xl shadow-lg transition-all text-lg mb-3 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                >
+                    {loading ? (
+                        <div className="flex items-center justify-center gap-2">
+                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                            </svg>
+                            <span>Logging in...</span>
+                        </div>
+                    ) : (
+                        'Login'
+                    )}
                 </button>
 
                 <div className="text-center mt-2">
