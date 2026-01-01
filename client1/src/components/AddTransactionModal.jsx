@@ -36,7 +36,7 @@ export default function AddTransactionModal({ onClose, onAdded }) {
 
     return (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-2">
-            <div className="bg-[#1E293B] rounded-2xl p-4 sm:p-5 w-full max-w-xs shadow-xl">
+            <div className="bg-[#393c40] rounded-2xl p-4 sm:p-5 w-full max-w-xs shadow-xl">
                 <h2 className="text-lg sm:text-xl font-bold mb-3 text-center">Add Transaction</h2>
 
 
